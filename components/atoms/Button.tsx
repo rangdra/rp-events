@@ -6,11 +6,11 @@ const buttonDefaultProps = {
 };
 interface IProps {
   className?: string;
-  children: (string | Element)[];
+  children: ReactNode;
   type?: 'submit' | 'button';
   onClick?: () => any;
 }
-const Button: FC = ({
+const Button = ({
   className,
   children,
   type,
