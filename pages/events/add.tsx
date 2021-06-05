@@ -156,7 +156,7 @@ const AddEvent = ({ token }) => {
           <div className="mt-4">
             <label htmlFor="description">Event Description</label>
             <textarea
-              type="text"
+              typeof="text"
               name="description"
               id="description"
               value={values.description}
