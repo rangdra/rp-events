@@ -60,8 +60,21 @@ const Dashboard = ({ events, token }: IProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const { token } = parseCookies(req);
+  const sendRedirectLocation = (location) => {
+    res.writeHead(302, {
+      Location: location,
+    });
+    res.end();
+    return { props: {} }; // stop execution
+  };
+
+  // some auth logic here
+
+  if (!token) {
+    sendRedirectLocation('/auth/login');
+  }
 
   const results = await fetch(`${API_URL}/events/me`, {
     method: 'GET',
@@ -78,4 +91,5 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
+
 export default Dashboard;

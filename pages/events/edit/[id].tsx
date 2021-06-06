@@ -230,10 +230,26 @@ const EditEvent = ({ evt, token }: IProps) => {
 export const getServerSideProps: GetServerSideProps = async ({
   params: { id },
   req,
+  res,
 }) => {
   const { token } = parseCookies(req);
-  const res = await fetch(`https://rpeventsserver.herokuapp.com/events/${id}`);
-  const evt = await res.json();
+  const sendRedirectLocation = (location) => {
+    res.writeHead(302, {
+      Location: location,
+    });
+    res.end();
+    return { props: {} }; // stop execution
+  };
+
+  // some auth logic here
+
+  if (!token) {
+    sendRedirectLocation('/auth/login');
+  }
+  const result = await fetch(
+    `https://rpeventsserver.herokuapp.com/events/${id}`
+  );
+  const evt = await result.json();
 
   return {
     props: { evt, token },

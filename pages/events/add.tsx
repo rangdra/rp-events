@@ -175,8 +175,21 @@ const AddEvent = ({ token }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const { token } = parseCookies(req);
+  const sendRedirectLocation = (location) => {
+    res.writeHead(302, {
+      Location: location,
+    });
+    res.end();
+    return { props: {} }; // stop execution
+  };
+
+  // some auth logic here
+
+  if (!token) {
+    sendRedirectLocation('/auth/login');
+  }
 
   return {
     props: {
