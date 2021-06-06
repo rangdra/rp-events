@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   //Register
   const register = async (user) => {
-    const res = await fetch(`${NEXT_URL}/api/register`, {
+    const res = await fetch(`https://rpevents.vercel.app/api/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   //Login
   const login = async ({ email: identifier, password }) => {
-    const res = await fetch(`${NEXT_URL}/api/login`, {
+    const res = await fetch(`https://rpevents.vercel.app/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
   //Check if user login
   const checkUserLoggedIn = async () => {
-    const res = await fetch(`${NEXT_URL}/api/user`);
+    const res = await fetch(`https://rpevents.vercel.app/api/user`);
     const data = await res.json();
 
     if (res.ok) {
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
 
   //Logout
   const logout = async () => {
-    const res = await fetch(`${NEXT_URL}/api/logout`, {
+    const res = await fetch(`https://rpevents.vercel.app/api/logout`, {
       method: 'POST',
     });
 
